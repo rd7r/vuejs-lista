@@ -1,7 +1,7 @@
 <template>
   <div class="col-lg-6 offset-3">
     <ul class="list-group list-group-numbered">
-      <li v-for="(item, index) in frutas" :key="item.index" @click="aumentar(index)" 
+      <li v-for="(item, index) in arrayOrdenado" :key="item.index" @click="aumentar(index)" 
       class="list-group-item d-flex justify-content-between align-items-start flecha">
         <div class="ms-2 me-auto">
           <div class="fw-bold">{{item.name}}</div>
@@ -18,8 +18,11 @@
 import { mapState, mapMutations } from 'vuex';
 export default {
   name: "Lista",
-  computed: {
-    ...mapState(['frutas'])
+  computed:{
+    ...mapState(['frutas']),
+    arrayOrdenado(){
+      return this.frutas.slice().sort((a , b) => b.cantidad - a.cantidad)
+    }
   },
   methods: {
     ...mapMutations(['aumentar','reiniciar'])
